@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Superstore - Premium Gym Equipment</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+            --border: #bdc3c7;
+            --success: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #c0392b;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 10px auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .product-description {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .brand-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .brand-logo {
+            width: 150px;
+            height: 80px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .deals-banner {
+            background-color: var(--secondary);
+            color: white;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .deals-banner h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .page-content {
+            min-height: 60vh;
+            padding: 40px 0;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .breadcrumb {
+            margin-bottom: 30px;
+            color: var(--text-light);
+        }
+        
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 30px 20px;
+            transition: transform 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .category-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .service-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+        
+        .service-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .service-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .service-list a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: var(--accent);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 20px;
+            color: #bdc3c7;
+        }
+        
+        .cart-count {
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+        
+        /* Page-specific styles */
+        #home-page, #products-page, #brands-page, #deals-page, #contact-page, #shop-page, #customer-service-page, #about-page {
+            display: none;
+        }
+        
+        #home-page {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo" data-page="home-page">
+                    <span class="logo-icon">💪</span>
+                    Fitness Superstore
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <nav>
+                    <ul id="mainNav">
+                        <li><a href="#" data-page="home-page">Home</a></li>
+                        <li><a href="#" data-page="products-page">Products</a></li>
+                        <li><a href="#" data-page="brands-page">Brands</a></li>
+                        <li><a href="#" data-page="deals-page">Deals</a></li>
+                        <li><a href="#" data-page="contact-page">Contact</a></li>
+                        <li>
+                            <a href="#" id="cart-link">
+                                Cart <span class="cart-count">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home-page" class="page">
+        <div class="hero">
+            <div class="container">
+                <h1>Build Your Dream Gym</h1>
+                <p>Premium commercial and home fitness equipment with expert advice and unbeatable prices.</p>
+                <a href="#" class="btn btn-primary" data-page="products-page">Shop Now</a>
+                <a href="#" class="btn btn-secondary" data-page="deals-page">View Deals</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="products-grid">
+                    <!-- Product cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="background-color: var(--light);">
+            <div class="container">
+                <h2 class="section-title">Shop By Category</h2>
+                <div class="category-grid">
+                    <div class="category-card">
+                        <div class="category-icon">🏠</div>
+                        <h3 class="category-title">Home Gym Equipment</h3>
+                        <p>Complete solutions for your home fitness space</p>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;" data-page="shop-page">Explore</a>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🏢</div>
+                        <h3 class="category-title">Commercial Equipment</h3>
+                        <p>Professional-grade equipment for gyms and studios</p>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;" data-page="shop-page">Explore</a>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🏋️</div>
+                        <h3 class="category-title">Weights & Bars</h3>
+                        <p>Dumbbells, barbells, plates and more</p>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;" data-page="shop-page">Explore</a>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🏃</div>
+                        <h3 class="category-title">Cardio Machines</h3>
+                        <p>Treadmills, bikes, ellipticals and rowers</p>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;" data-page="shop-page">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <h2 class="section-title">Our Brands</h2>
+                <div class="brand-logos">
+                    <div class="brand-logo">French Fitness</div>
+                    <div class="brand-logo">IronMax</div>
+                    <div class="brand-logo">ProForm</div>
+                    <div class="brand-logo">BodyCraft</div>
+                    <div class="brand-logo">StrengthMaster</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Page -->
+    <section id="products-page" class="page">
+        <div class="container page-content">
+            <div class="breadcrumb">
+                <a href="#" data-page="home-page">Home</a> > Products
+            </div>
+            <h1 class="page-title">All Products</h1>
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Page -->
+    <section id="brands-page" class="page">
+        <div class="container page-content">
+            <div class="breadcrumb">
+                <a href="#" data-page="home-page">Home</a> > Brands
+            </div>
+            <h1 class="page-title">Our Brands</h1>
+            <div class="brand-logos" style="margin-top: 40px;">
+                <div class="brand-logo" style="height: 120px; width: 200px; flex-direction: column;">
+                    <h3>French Fitness</h3>
+                    <p style="font-size: 14px; margin-top: 10px;">Our Premium Line</p>
+                </div>
+                <div class="brand-logo" style="height: 120px; width: 200px; flex-direction: column;">
+                    <h3>IronMax</h3>
+                    <p style="font-size: 14px; margin-top: 10px;">Commercial Grade</p>
+                </div>
+                <div class="brand-logo" style="height: 120px; width: 200px; flex-direction: column;">
+                    <h3>ProForm</h3>
+                    <p style="font-size: 14px; margin-top: 10px;">Cardio Specialists</p>
+                </div>
+                <div class="brand-logo" style="height: 120px; width: 200px; flex-direction: column;">
+                    <h3>BodyCraft</h3>
+                    <p style="font-size: 14px; margin-top: 10px;">Home Gym Solutions</p>
+                </div>
+                <div class="brand-logo" style="height: 120px; width: 200px; flex-direction: column;">
+                    <h3>StrengthMaster</h3>
+                    <p style="font-size: 14px; margin-top: 10px;">Strength Training</p>
+                </div>
+            </div>
+            
+            <div class="about-content" style="margin-top: 60px;">
+                <div class="about-text">
+                    <h2>Why Choose Our Brands?</h2>
+                    <p>At Fitness Superstore, we carefully select and develop brands that meet our high standards for quality, durability, and performance. Whether you're outfitting a commercial gym or building your home fitness space, our brands deliver exceptional value and results.</p>
+                    <p>Our flagship brand, French Fitness, represents our commitment to innovation and excellence with commercial-grade construction at accessible prices.</p>
+                    <a href="#" class="btn btn-primary" data-page="products-page">Shop All Brands</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gym Equipment">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Page -->
+    <section id="deals-page" class="page">
+        <div class="container page-content">
+            <div class="breadcrumb">
+                <a href="#" data-page="home-page">Home</a> > Deals
+            </div>
+            <h1 class="page-title">Special Offers</h1>
+            
+            <div class="deals-banner">
+                <h2>Summer Fitness Sale</h2>
+                <p>Up to 40% off select equipment + free shipping on orders over $499</p>
+                <p style="margin-top: 15px;"><strong>Offer ends August 31st</strong></p>
+            </div>
+            
+            <h2 style="margin-bottom: 20px;">Featured Deals</h2>
+            <div class="products-grid" id="deals-grid">
+                <!-- Deal products will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact-page" class="page">
+        <div class="container page-content">
+            <div class="breadcrumb">
+                <a href="#" data-page="home-page">Home</a> > Contact
+            </div>
+            <h1 class="page-title">Contact Us</h1>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Get In Touch</h2>
+                    <p>Have questions about our products or need help selecting the right equipment for your needs? Our fitness experts are here to help.</p>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3>Contact Information</h3>
+                        <p><strong>Phone:</strong> 1-800-FITNESS (1-800-348-6377)</p>
+                        <p><strong>Email:</strong> support@fitnesssuperstore.com</p>
+                        <p><strong>Store Hours:</strong> Mon-Fri 9am-9pm, Sat 10am-7pm, Sun 11am-6pm</p>
+                        <p><strong>Address:</strong> 123 Fitness Ave, Health City, FS 54321</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Page -->
+    <section id="shop-page" class="page">
+        <div class="container page-content">
+            <div class="breadcrumb">
+                <a href="#" data-page="home-page">Home</a> > Shop
+            </div>
+            <h1 class="page-title">Shop By Category</h1>
+            
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">🏠</div>
+                    <h3 class="category-title">Home Gym Equipment</h3>
+                    <p>Complete solutions for your home fitness space</p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 15px;">Browse 42 Products</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏢</div>
+                    <h3 class="category-title">Commercial Equipment</h3>
+                    <p>Professional-grade equipment for gyms and studios</p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 15px;">Browse 68 Products</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏋️</div>
+                    <h3 class="category-title">Weights & Bars</h3>
+                    <p>Dumbbells, barbells, plates and more</p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 15px;">Browse 125 Products</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏃</div>
+                    <h3 class="category-title">Cardio Machines</h3>
+                    <p>Treadmills, bikes, ellipticals and rowers</p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 15px;">Browse 89 Products</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Service Page -->
+    <section id="customer-service-page" class="page">
+        <div class="container page-content">
+            <div class="breadcrumb">
+                <a href="#" data-page="home-page">Home</a> > Customer Service
+            </div>
+            <h1 class="page-title">Customer Service</h1>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>How Can We Help You?</h2>
+                    <p>At Fitness Superstore, we're committed to providing exceptional customer service. Whether you need help with an order, have questions about a product, or need assistance with assembly, our team is here to help.</p>
+                    
+                    <ul class="service-list">
+                        <li><a href="#" data-page="contact-page">Contact Us</a> - Get in touch with our support team</li>
+                        <li><a href="#">Shipping Info</a> - Delivery times and shipping options</li>
+                        <li><a href="#">Returns & Exchanges</a> - Our 30-day satisfaction guarantee</li>
+                        <li><a href="#">Warranty Information</a> - Product warranties and claims</li>
+                        <li><a href="#">Assembly Services</a> - Professional equipment assembly</li>
+                        <li><a href="#">Financing Options</a> - Flexible payment plans</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Customer Service">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about-page" class="page">
+        <div class="container page-content">
+            <div class="breadcrumb">
+                <a href="#" data-page="home-page">Home</a> > About Us
+            </div>
+            <h1 class="page-title">About Fitness Superstore</h1>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Our Story</h2>
+                    <p>Founded in 2005, Fitness Superstore began with a simple mission: to make high-quality fitness equipment accessible to everyone. What started as a single storefront has grown into a leading retailer of commercial and home gym equipment across the United States.</p>
+                    <p>We're proud to offer our own French Fitness brand alongside other premium equipment lines, all backed by our commitment to quality, service, and customer satisfaction.</p>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3>Quick Links</h3>
+                        <ul class="service-list">
+                            <li><a href="#" data-page="brands-page">Brands</a> - Learn about our product lines</li>
+                            <li><a href="#">Careers</a> - Join our growing team</li>
+                            <li><a href="#">Press</a> - Media resources and news</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Our Store">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#" data-page="shop-page">Home Gym Equipment</a></li>
+                        <li><a href="#" data-page="shop-page">Commercial Equipment</a></li>
+                        <li><a href="#" data-page="shop-page">Weights & Bars</a></li>
+                        <li><a href="#" data-page="shop-page">Cardio Machines</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#" data-page="contact-page">Contact Us</a></li>
+                        <li><a href="#" data-page="customer-service-page">Shipping Info</a></li>
+                        <li><a href="#" data-page="customer-service-page">Returns & Exchanges</a></li>
+                        <li><a href="#" data-page="customer-service-page">Warranty Information</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <ul>
+                        <li><a href="#" data-page="about-page">Our Story</a></li>
+                        <li><a href="#" data-page="brands-page">Brands</a></li>
+                        <li><a href="#" data-page="about-page">Careers</a></li>
+                        <li><a href="#" data-page="about-page">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Fitness Superstore. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "French Fitness Pro Home Gym System",
+                price: 1299.99,
+                image: "https://via.placeholder.com/300x200/ECF0F1/2C3E50?text=Home+Gym+System",
+                description: "Complete full-body workout station with weight stack and adjustable bench.",
+                category: "Home Gym",
+                brand: "French Fitness",
+                isDeal: true
+            },
+            {
+                id: 2,
+                name: "IronMax Commercial Treadmill",
+                price: 2499.99,
+                image: "https://via.placeholder.com/300x200/ECF0F1/2C3E50?text=Commercial+Treadmill",
+                description: "Commercial-grade treadmill with 4.0 HP motor and 22\" running surface.",
+                category: "Cardio",
+                brand: "IronMax",
+                isDeal: false
+            },
+            {
+                id: 3,
+                name: "ProForm Elliptical Trainer",
+                price: 899.99,
+                image: "https://via.placeholder.com/300x200/ECF0F1/2C3E50?text=Elliptical+Trainer",
+                description: "Low-impact cardio machine with 20 resistance levels and built-in workout programs.",
+                category: "Cardio",
+                brand: "ProForm",
+                isDeal: true
+            },
+            {
+                id: 4,
+                name: "BodyCraft F430 Functional Trainer",
+                price: 1899.99,
+                image: "https://via.placeholder.com/300x200/ECF0F1/2C3E50?text=Functional+Trainer",
+                description: "Dual adjustable pulley system for complete functional training.",
+                category: "Home Gym",
+                brand: "BodyCraft",
+                isDeal: false
+            },
+            {
+                id: 5,
+                name: "StrengthMaster Olympic Weight Set",
+                price: 499.99,
+                image: "https://via.placeholder.com/300x200/ECF0F1/2C3E50?text=Weight+Set",
+                description: "300 lb Olympic weight set with 7-foot barbell and collar locks.",
+                category: "Weights",
+                brand: "StrengthMaster",
+                isDeal: true
+            },
+            {
+                id: 6,
+                name: "French Fitness Adjustable Bench",
+                price: 299.99,
+                image: "https://via.placeholder.com/300x200/ECF0F1/2C3E50?text=Adjustable+Bench",
+                description: "7-position adjustable bench for decline, flat and incline exercises.",
+                category: "Home Gym",
+                brand: "French Fitness",
+                isDeal: false
+            },
+            {
+                id: 7,
+                name: "IronMax Dumbbell Set 5-50 lbs",
+                price: 799.99,
+                image: "https://via.placeholder.com/300x200/ECF0F1/2C3E50?text=Dumbbell+Set",
+                description: "Complete rubber hex dumbbell set with rack included.",
+                category: "Weights",
+                brand: "IronMax",
+                isDeal: true
+            },
+            {
+                id: 8,
+                name: "ProForm Rowing Machine",
+                price: 699.99,
+                image: "https://via.placeholder.com/300x200/ECF0F1/2C3E50?text=Rowing+Machine",
+                description: "Full-body workout rower with magnetic resistance and performance monitor.",
+                category: "Cardio",
+                brand: "ProForm",
+                isDeal: false
+            }
+        ];
+
+        // Cart functionality
+        let cart = [];
+        const cartCount = document.querySelector('.cart-count');
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render featured products on home page
+            renderFeaturedProducts();
+            
+            // Render all products on products page
+            renderAllProducts();
+            
+            // Render deal products on deals page
+            renderDealProducts();
+            
+            // Setup navigation
+            setupNavigation();
+            
+            // Setup mobile menu
+            setupMobileMenu();
+            
+            // Setup contact form
+            setupContactForm();
+        });
+
+        // Render featured products (first 4 products)
+        function renderFeaturedProducts() {
+            const productsGrid = document.querySelector('#home-page .products-grid');
+            const featuredProducts = products.slice(0, 4);
+            
+            productsGrid.innerHTML = '';
+            featuredProducts.forEach(product => {
+                productsGrid.appendChild(createProductCard(product));
+            });
+        }
+
+        // Render all products
+        function renderAllProducts() {
+            const productsGrid = document.getElementById('products-grid');
+            
+            productsGrid.innerHTML = '';
+            products.forEach(product => {
+                productsGrid.appendChild(createProductCard(product));
+            });
+        }
+
+        // Render deal products
+        function renderDealProducts() {
+            const dealsGrid = document.getElementById('deals-grid');
+            const dealProducts = products.filter(product => product.isDeal);
+            
+            dealsGrid.innerHTML = '';
+            dealProducts.forEach(product => {
+                dealsGrid.appendChild(createProductCard(product));
+            });
+        }
+
+        // Create product card element
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">${product.name}</h3>
+                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-meta">
+                        <span>${product.brand}</span>
+                        <span>${product.category}</span>
+                    </div>
+                    <button class="btn btn-primary add-to-cart" data-id="${product.id}" style="width: 100%; margin-top: 15px;">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
+            
+            // Add event listener to the Add to Cart button
+            const addToCartBtn = card.querySelector('.add-to-cart');
+            addToCartBtn.addEventListener('click', function() {
+                addToCart(product);
+            });
+            
+            return card;
+        }
+
+        // Add product to cart
+        function addToCart(product) {
+            cart.push(product);
+            updateCartCount();
+            alert(`${product.name} added to cart!`);
+        }
+
+        // Update cart count display
+        function updateCartCount() {
+            cartCount.textContent = cart.length;
+        }
+
+        // Setup navigation between pages
+        function setupNavigation() {
+            // Page navigation
+            const navLinks = document.querySelectorAll('a[data-page]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mainNav');
+                    mobileMenu.classList.remove('show');
+                });
+            });
+            
+            // Footer navigation
+            const footerLinks = document.querySelectorAll('footer a[data-page]');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+        }
+
+        // Show specific page and hide others
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Setup mobile menu toggle
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('show');
+            });
+        }
+
+        // Setup contact form submission
+        function setupContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // In a real application, this would send the data to a server
+                // For this demo, we'll just show a success message
+                alert(`Thank you for your message, ${name}! We'll get back to you soon.`);
+                
+                // Reset the form
+                contactForm.reset();
+            });
+        }
+    </script>
+</body>
+</html>
